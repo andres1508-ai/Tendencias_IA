@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub Interactivo: Tendencias de IA 2025 (Análisis Detallado)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #F9FAFB;
+        }
+        .trend-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #374151;
+            display: flex;
+            flex-direction: column;
+        }
+        .trend-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2), 0 8px 10px -6px rgba(99, 102, 241, 0.2);
+            border-color: #6366F1;
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            z-index: 50;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #1F2937;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: #4F46E5;
+            border-radius: 10px;
+            border: 2px solid #1F2937;
+        }
+        .outcome-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        .outcome-success { background-color: rgba(16, 185, 129, 0.1); color: #10B981; }
+        .outcome-mixed { background-color: rgba(245, 158, 11, 0.1); color: #F59E0B; }
+        .outcome-strategic { background-color: rgba(99, 102, 241, 0.1); color: #6366F1; }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor Principal -->
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+        <header class="text-center mb-10 md:mb-16">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500 mb-4">Hub de Tendencias de IA 2025</h1>
+            <p class="text-base md:text-lg text-gray-400 max-w-3xl mx-auto mb-6">Un análisis interactivo de las fuerzas que moldean el futuro de la IA. Haz clic en una tarjeta para explorar o ve directamente al análisis de estrategias.</p>
+            <a href="#implementation-analysis" class="inline-block bg-indigo-600 text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-lg hover:bg-indigo-500 transition-colors text-base">
+                Ver Análisis de Implementación
+            </a>
+        </header>
+
+        <!-- Rejilla de Tendencias -->
+        <main id="trends-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <!-- Las tarjetas de tendencias se insertarán aquí dinámicamente -->
+        </main>
+
+        <!-- Sección de Análisis de Implementación -->
+        <section id="implementation-analysis" class="mt-20 md:mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Análisis de Implementación: Líderes y Pioneros</h2>
+            <div id="analysis-content" class="space-y-12">
+                <!-- El contenido del análisis se insertará aquí -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para detalles de la tendencia -->
+    <div id="trend-modal" class="modal-backdrop hidden">
+        <div id="modal-content-container" class="modal-content bg-gray-900 rounded-xl shadow-2xl w-11/12 md:w-3/4 lg:w-2/3 p-6 md:p-8 relative border border-gray-700">
+            <!-- El contenido del modal se insertará aquí -->
+        </div>
+    </div>
+
+    <script>
+        const trendsData = [
+            {
+                id: 'agential-ai',
+                title: 'IA Agéntica',
+                summary: 'Asistentes inteligentes que realizan tareas complejas por su cuenta.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>`,
+                description: 'Imagina un asistente que no solo responde a tus preguntas, sino que actúa. Le pides "organiza un viaje de fin de semana" y él solo busca vuelos, reserva hotel y añade el plan a tu calendario. Eso es la IA Agéntica: sistemas que entienden un objetivo, planifican los pasos y usan herramientas digitales para cumplirlo sin que tengas que supervisar cada acción.',
+                useCases: ['Asistentes personales que gestionan tu agenda y correos.', 'Sistemas que organizan proyectos, asignando tareas y siguiendo su progreso.', 'Agentes de compra que buscan y adquieren productos por ti.'],
+                leaders: ['OpenAI', 'Adept AI', 'Figure AI (robots)', 'Cognition Labs'],
+                advantages: ['Automatización de tareas completas, no solo partes.', 'Ahorro de tiempo y aumento de la productividad.', 'Capacidad para resolver problemas con múltiples pasos.'],
+                challenges: ['Riesgo de que tomen acciones no deseadas si no se controlan bien.', 'Dilemas sobre cuánta autonomía deben tener.', 'Requieren mucha potencia de computación.'],
+                leaderImplementations: [
+                    { name: 'OpenAI (Assistants API)', implementation: 'Crearon una herramienta para que los desarrolladores pudieran construir sus propios "agentes" o asistentes personalizados. En lugar de solo chatear, estos asistentes pueden usar herramientas como un navegador o una calculadora para completar tareas.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'Se convirtió en el estándar de la industria para construir agentes de IA. Permitió a miles de empresas y desarrolladores crear soluciones personalizadas sobre la tecnología de OpenAI, consolidando su liderazgo en el mercado.' },
+                    { name: 'Cognition Labs (Devin)', implementation: 'Presentaron a "Devin" como el primer ingeniero de software de IA totalmente autónomo, mostrando demos donde completaba proyectos de programación complejos por sí solo.', outcome: 'Éxito con matices', outcome_type: 'mixed', explanation: 'Generó un entusiasmo mediático inmenso y demostró el potencial de la IA agéntica. Sin embargo, fue criticado por exagerar sus capacidades en las demos, lo que generó un debate sobre la brecha entre la promesa y la realidad actual de la tecnología.' },
+                    { name: 'Figure AI + OpenAI', implementation: 'Integraron los modelos de lenguaje de OpenAI en su robot humanoide "Figure 01". Esto permitió al robot entender comandos de voz complejos y realizar tareas físicas, como preparar café o guardar platos.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'Las demos se volvieron virales, mostrando un avance tangible en la robótica y la IA. Demostró un caso de uso real y futurista que capturó la imaginación del público y atrajo inversiones millonarias.' }
+                ],
+                scalability2028: { score: 5, commentary: 'Para 2028, se espera que estos agentes sean comunes en el trabajo y el hogar, ayudando en todo, desde la gestión de agendas hasta la planificación de proyectos. Su crecimiento masivo dependerá de que sean cada vez más fiables y seguros.' }
+            },
+            {
+                id: 'generative-ai-mature',
+                title: 'IA Generativa Especializada',
+                summary: 'Modelos más pequeños, eficientes y entrenados para tareas específicas.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>`,
+                description: 'La carrera por tener el modelo de IA "más grande" está cambiando. Ahora, la clave es la eficiencia. Las empresas están creando modelos más pequeños y especializados, entrenados con sus propios datos. Piensa en un chatbot de un banco que solo sabe de finanzas, pero lo sabe todo. Son más rápidos, baratos y seguros porque no necesitan conectarse a una gran nube.',
+                useCases: ['Asistentes de servicio al cliente que conocen a fondo los productos de una empresa.', 'Herramientas que redactan informes financieros usando la jerga correcta.', 'Sistemas de IA que funcionan en tu móvil sin necesidad de internet.'],
+                leaders: ['Hugging Face', 'Mistral AI', 'Meta (Llama)', 'Google (Gemma)'],
+                advantages: ['Son más baratos de usar y entrenar.', 'Mayor privacidad, los datos de la empresa no salen de casa.', 'Mejor rendimiento en tareas concretas.'],
+                challenges: ['Se necesita conocimiento técnico para adaptarlos.', 'Pueden "inventar" respuestas si no se entrenan bien.', 'No tienen el conocimiento general de los modelos gigantes.'],
+                leaderImplementations: [
+                    { name: 'Meta (Modelos Llama)', implementation: 'Decidieron publicar sus potentes modelos de IA (Llama 2 y Llama 3) de forma gratuita para uso comercial y de investigación. Esto permitió que cualquiera pudiera descargarlos, modificarlos y usarlos sin coste.', outcome: 'Éxito estratégico', outcome_type: 'strategic', explanation: 'Aunque no genera ingresos directos, esta jugada impidió que un solo competidor (como OpenAI) monopolizara el mercado. Creó un ecosistema masivo alrededor de Llama, aceleró la innovación global y posicionó a Meta como un líder indispensable en el mundo de la IA abierta.' },
+                    { name: 'Mistral AI', implementation: 'Se enfocaron en crear modelos de código abierto que fueran extremadamente eficientes: casi tan potentes como los modelos gigantes, pero mucho más pequeños, rápidos y baratos de operar.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'Sus modelos se convirtieron en los favoritos de los desarrolladores. Demostraron que no se necesitaba ser un gigante tecnológico para crear IA de clase mundial, y su éxito les valió una valoración de miles de millones y una asociación clave con Microsoft.' }
+                ],
+                scalability2028: { score: 4, commentary: 'La adopción será masiva en las empresas. Para 2028, la mayoría de las grandes compañías tendrán sus propios modelos especializados para tareas internas, desde marketing hasta análisis de datos, reduciendo su dependencia de terceros.' }
+            },
+            {
+                id: 'multimodal-ai',
+                title: 'IA Multimodal',
+                summary: 'La IA que entiende texto, imágenes, audio y video a la vez.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l-1-1m5-5l-1-1m-6 9v2m0-14v2m-3 5h2m11 0h2m-5-5l1.414-1.414a1 1 0 011.414 0l.293.293m-10 10l1.414 1.414a1 1 0 001.414 0l.293-.293" /></svg>`,
+                description: 'Esta IA rompe las barreras entre formatos. Puede ver, escuchar y leer al mismo tiempo. Por ejemplo, puedes mostrarle una foto de tu nevera, preguntarle en voz alta "¿Qué puedo cocinar?" y te responderá con una receta en texto y un video de cómo prepararla. Entiende el mundo de una forma mucho más completa, como lo hacemos los humanos.',
+                useCases: ['Diagnósticos médicos que combinan radiografías, notas del doctor e historial.', 'Educación interactiva que responde a preguntas sobre un diagrama.', 'Crear campañas de marketing (texto, imagen y video) a partir de una idea.'],
+                leaders: ['Google (Gemini)', 'OpenAI (GPT-4o)', 'Anthropic (Claude)'],
+                advantages: ['Entiende el contexto de forma mucho más rica.', 'Permite formas de interacción más naturales.', 'Puede resolver problemas más complejos.'],
+                challenges: ['Necesita cantidades enormes de datos para entrenar.', 'Es muy costosa de operar.', 'Es difícil equilibrar la importancia de cada formato.'],
+                leaderImplementations: [
+                    { name: 'OpenAI (GPT-4o)', implementation: 'Lanzaron un nuevo modelo, GPT-4o ("o" de "omni"), capaz de mantener conversaciones de voz en tiempo real, viendo el mundo a través de la cámara de un teléfono y respondiendo con una latencia casi humana.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'La demo de lanzamiento fue un fenómeno global que redefinió las expectativas de la interacción humano-IA. Estableció un nuevo estándar para los asistentes personales y mostró un futuro inspirado en la película "Her".' },
+                    { name: 'Google (Gemini)', implementation: 'Integraron su modelo multimodal Gemini en todos sus productos, desde la Búsqueda de Google hasta los teléfonos Android. Su objetivo era hacer que la IA fuera útil en el día a día, permitiendo, por ejemplo, rodear un objeto en la pantalla para buscarlo.', outcome: 'Éxito con matices', outcome_type: 'mixed', explanation: 'La tecnología subyacente es extremadamente potente y se está desplegando con éxito a miles de millones de usuarios. Sin embargo, su demo de lanzamiento inicial fue criticada por ser editada, lo que generó un revés de relaciones públicas y una percepción de que estaban tratando de alcanzar a OpenAI.' }
+                ],
+                scalability2028: { score: 5, commentary: 'Será el estándar para todas las interacciones con la IA. Para 2028, esperaremos que nuestros asistentes puedan ver lo que vemos a través de la cámara del móvil y entender nuestras preguntas de voz, haciendo la tecnología mucho más intuitiva.' }
+            },
+            {
+                id: 'edge-ai',
+                title: 'IA en tus Dispositivos (Edge AI)',
+                summary: 'Procesamiento inteligente directamente en tu móvil o coche.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>`,
+                description: 'En lugar de enviar tus datos a un servidor lejano (la nube) para que una IA los procese, la "Edge AI" lo hace todo en tu propio dispositivo. Esto es posible gracias a chips cada vez más potentes y a modelos de IA más eficientes. Es más rápido, privado y funciona incluso sin conexión a internet.',
+                useCases: ['Reconocimiento facial en tu móvil que funciona sin internet.', 'Cámaras de seguridad que analizan el video en tiempo real sin subirlo a la nube.', 'Coches autónomos que toman decisiones en milisegundos.'],
+                leaders: ['NVIDIA', 'Qualcomm', 'Apple', 'Intel'],
+                advantages: ['Respuesta instantánea (baja latencia).', 'Mayor privacidad y seguridad de tus datos.', 'Funciona sin conexión.', 'Ahorra costes de internet.'],
+                challenges: ['Los dispositivos tienen potencia y memoria limitadas.', 'Es más complejo actualizar los modelos de IA.', 'Requiere hardware especializado.'],
+                leaderImplementations: [],
+                scalability2028: { score: 4, commentary: 'Casi todos los nuevos smartphones, coches y dispositivos inteligentes de gama alta incluirán chips de IA potentes. La IA en el dispositivo será clave para funciones de privacidad y respuesta inmediata, como los asistentes de salud en tiempo real.' }
+            },
+            {
+                id: 'governance-ai',
+                title: 'Gobernanza y Regulación',
+                summary: 'Estableciendo las reglas del juego para una IA segura y justa.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12l-1.825-6.691a1.986 1.986 0 00-1.924-1.43H6.75a1.986 1.986 0 00-1.924 1.43L3 12m18 0l-1.825 6.691a1.986 1.986 0 01-1.924 1.43H6.75a1.986 1.986 0 01-1.924-1.43L3 12m18 0H3m14-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
+                description: 'A medida que la IA se vuelve más poderosa, se necesita un manual de instrucciones. Gobiernos y organizaciones están creando leyes y estándares para asegurar que la IA se use de forma segura, ética y justa. El objetivo es que sea transparente (que sepamos cómo funciona) y que haya responsables claros.',
+                useCases: ['Clasificar sistemas de IA por nivel de riesgo (Ley de IA de la UE).', 'Auditorías obligatorias para algoritmos que toman decisiones críticas.', 'Creación de comités de ética de IA dentro de las empresas.'],
+                leaders: ['Unión Europea (AI Act)', 'Gobierno de EE.UU.', 'NIST', 'OCDE y ONU'],
+                advantages: ['Aumenta la confianza del público.', 'Reduce riesgos de discriminación.', 'Establece reglas claras para las empresas.', 'Fomenta una innovación más responsable.'],
+                challenges: ['Una regulación muy estricta podría frenar la innovación.', 'La tecnología avanza más rápido que las leyes.', 'Es difícil de aplicar y supervisar a nivel mundial.'],
+                leaderImplementations: [
+                    { name: 'Unión Europea (Ley de IA)', implementation: 'Crearon y aprobaron la primera ley integral y legalmente vinculante del mundo para la IA. La ley clasifica los sistemas de IA según su nivel de riesgo y establece reglas estrictas para las aplicaciones de alto riesgo (como en salud o finanzas).', outcome: 'Éxito estratégico', outcome_type: 'strategic', explanation: 'Estableció un estándar global (el "Efecto Bruselas"). Ahora, cualquier empresa global que quiera operar en Europa debe cumplir con sus reglas, lo que obliga a toda la industria a tomarse la seguridad más en serio. Sin embargo, enfrenta críticas por poder ralentizar la innovación.' },
+                    { name: 'IBM (Trustworthy AI)', implementation: 'En lugar de solo construir modelos, IBM se centró en crear herramientas y un marco de trabajo para que otras empresas pudieran gobernar su propia IA. Ofrecen productos para detectar sesgos, explicar decisiones y garantizar el cumplimiento normativo.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'Se posicionaron como el socio "adulto y responsable" para las grandes corporaciones que temen los riesgos de la IA. Su enfoque en la confianza y la gobernanza les ha permitido ganar contratos con empresas de sectores muy regulados que priorizan la seguridad sobre la última novedad.' }
+                ],
+                scalability2028: { score: 3, commentary: 'Para 2028, la mayoría de los países desarrollados tendrán leyes de IA en vigor. El gran desafío será unificar estas reglas a nivel global. Las empresas tendrán que navegar un complejo mapa de regulaciones diferentes para operar internacionalmente.' }
+            },
+            {
+                id: 'explainable-ai',
+                title: 'IA Explicable (XAI)',
+                summary: 'Abriendo la "caja negra" para entender sus decisiones.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l4-4m0 0l4-4m-4 4l4 4m-4-4L8 8m13-3l-4.5 4.5M9 15l-4.5 4.5M12 12l4.5 4.5M12 12l-4.5-4.5" /></svg>`,
+                description: 'Muchos modelos de IA son como una "caja negra": te dan una respuesta, pero no te dicen por qué. La IA Explicable (XAI) busca cambiar eso, creando métodos para que los sistemas puedan justificar sus decisiones en un lenguaje que los humanos podamos entender. Es crucial para confiar en la IA en áreas importantes.',
+                useCases: ['Un sistema que no solo detecta una enfermedad, sino que resalta el área sospechosa.', 'Un banco que explica por qué se denegó un préstamo.', 'Identificar y corregir sesgos en los modelos.'],
+                leaders: ['Google', 'IBM', 'Fiddler AI'],
+                advantages: ['Aumenta la confianza en la IA.', 'Permite mejorar y corregir los modelos.', 'Es un requisito legal en muchos sectores.', 'Facilita la colaboración entre humanos y máquinas.'],
+                challenges: ['A veces, hacer un modelo más explicable puede hacerlo un poco menos preciso.', 'Las explicaciones pueden ser todavía muy técnicas.', 'Riesgo de simplificar demasiado el razonamiento real del modelo.'],
+                leaderImplementations: [],
+                scalability2028: { score: 4, commentary: 'La explicabilidad dejará de ser una opción para convertirse en una obligación en sectores regulados como finanzas y salud. Para 2028, veremos herramientas de XAI integradas por defecto en las plataformas de desarrollo de IA empresariales.' }
+            }
+        ];
+
+        // --- LÓGICA DE LA APLICACIÓN ---
+        const trendsGrid = document.getElementById('trends-grid');
+        const modal = document.getElementById('trend-modal');
+        const modalContentContainer = document.getElementById('modal-content-container');
+        const analysisContent = document.getElementById('analysis-content');
+
+        function renderScalabilityBar(score) {
+            let bars = '';
+            for (let i = 0; i < 5; i++) {
+                bars += `<div class="w-1/5 h-2 ${i < score ? 'bg-indigo-500' : 'bg-gray-600'} rounded-full mx-0.5"></div>`;
+            }
+            return `<div class="flex w-full">${bars}</div>`;
+        }
+
+        function renderTrendCards() {
+            trendsGrid.innerHTML = '';
+            trendsData.forEach(trend => {
+                const card = document.createElement('div');
+                card.className = 'trend-card bg-gray-800 rounded-lg p-6';
+                card.setAttribute('data-id', trend.id);
+                card.innerHTML = `
+                    <div class="mb-4">${trend.icon}</div>
+                    <h2 class="text-xl font-bold text-white mb-2">${trend.title}</h2>
+                    <p class="text-gray-400 flex-grow mb-4">${trend.summary}</p>
+                    <div class="w-full mt-auto">
+                        <p class="text-sm font-semibold text-gray-300 mb-2">Potencial a 2028</p>
+                        ${renderScalabilityBar(trend.scalability2028.score)}
+                    </div>
+                `;
+                card.addEventListener('click', () => showModal(trend.id));
+                trendsGrid.appendChild(card);
+            });
+        }
+
+        function renderAnalysisSection() {
+            analysisContent.innerHTML = '';
+            trendsData.forEach(trend => {
+                if (trend.leaderImplementations && trend.leaderImplementations.length > 0) {
+                    const trendSection = document.createElement('div');
+                    trendSection.innerHTML = `
+                        <h3 class="text-2xl font-bold mb-6 text-white">${trend.title}</h3>
+                        <div class="space-y-6">
+                            ${trend.leaderImplementations.map(leader => `
+                                <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
+                                        <h4 class="text-lg font-bold text-white">${leader.name}</h4>
+                                        <span class="outcome-badge outcome-${leader.outcome_type}">${leader.outcome}</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-indigo-400 mb-1">Cómo lo hicieron:</h5>
+                                        <p class="text-gray-300 text-sm mb-3">${leader.implementation}</p>
+                                        <h5 class="font-semibold text-indigo-400 mb-1">Por qué funcionó (o no):</h5>
+                                        <p class="text-gray-300 text-sm">${leader.explanation}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    analysisContent.appendChild(trendSection);
+                }
+            });
+        }
+
+        function showModal(trendId) {
+            const trend = trendsData.find(t => t.id === trendId);
+            if (!trend) return;
+
+            modalContentContainer.innerHTML = `
+                <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <div class="flex items-start mb-4">
+                    ${trend.icon}
+                    <h2 class="text-2xl md:text-3xl font-bold ml-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">${trend.title}</h2>
+                </div>
+                <p class="text-gray-300 mb-6">${trend.description}</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-semibold text-white mb-3 border-b-2 border-indigo-500 pb-1">Casos de Uso Clave</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm md:text-base">
+                            ${trend.useCases.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-semibold text-white mb-3 border-b-2 border-indigo-500 pb-1">Líderes y Pioneros</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm md:text-base">
+                            ${trend.leaders.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-semibold text-green-400 mb-3">Ventajas</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm md:text-base">
+                            ${trend.advantages.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-semibold text-red-400 mb-3">Desafíos</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm md:text-base">
+                            ${trend.challenges.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-lg md:text-xl font-semibold text-cyan-400 mb-2">Visión y Escalabilidad a 2028</h3>
+                    <p class="text-gray-300 text-sm md:text-base">${trend.scalability2028.commentary}</p>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            document.getElementById('close-modal').addEventListener('click', hideModal);
+        }
+
+        function hideModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) hideModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && !modal.classList.contains('hidden')) hideModal();
+        });
+
+        // Inicializar la aplicación
+        renderTrendCards();
+        renderAnalysisSection();
+    </script>
+</body>
+</html>
