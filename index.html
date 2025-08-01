@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub Interactivo: Tendencias de IA 2025 (Análisis Detallado)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #F9FAFB;
+        }
+        .trend-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #374151;
+            display: flex;
+            flex-direction: column;
+        }
+        .trend-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2), 0 8px 10px -6px rgba(99, 102, 241, 0.2);
+            border-color: #6366F1;
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            z-index: 50;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #1F2937;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: #4F46E5;
+            border-radius: 10px;
+            border: 2px solid #1F2937;
+        }
+        .outcome-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        .outcome-success { background-color: rgba(16, 185, 129, 0.1); color: #10B981; }
+        .outcome-mixed { background-color: rgba(245, 158, 11, 0.1); color: #F59E0B; }
+        .outcome-strategic { background-color: rgba(99, 102, 241, 0.1); color: #6366F1; }
+        .outcome-failure { background-color: rgba(239, 68, 68, 0.1); color: #EF4444; }
+        
+        /* Enhanced card styles */
+        .enhanced-card {
+            background-color: rgba(31, 41, 55, 0.8);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(75, 85, 99, 0.3);
+        }
+        .enhanced-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -2px rgb(0 0 0 / 0.2);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+        
+        /* Timeline styles for transformation phases */
+        .phase-timeline {
+            position: relative;
+        }
+        .phase-timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #8B5CF6, #A855F7);
+        }
+        
+        /* Animated progress indicators */
+        .progress-circle {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+        
+        /* Success/failure case styling */
+        .success-case {
+            border-left: 4px solid #10B981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+        }
+        .failure-case {
+            border-left: 4px solid #EF4444;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor Principal -->
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+        <header class="text-center mb-10 md:mb-16">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500 mb-4">Hub de Tendencias de IA 2025</h1>
+            <p class="text-base md:text-lg text-gray-400 max-w-3xl mx-auto mb-6">Un análisis interactivo de las fuerzas que moldean el futuro de la IA. Explora las tendencias o navega directamente a las secciones de análisis.</p>
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4">
+                <a href="#implementation-analysis" class="inline-block bg-indigo-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-5 rounded-lg hover:bg-indigo-500 transition-colors text-sm sm:text-base">
+                    Análisis de Estrategias
+                </a>
+                <a href="#public-perception" class="inline-block bg-gray-700 text-white font-semibold py-2 px-4 sm:py-3 sm:px-5 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base">
+                    Percepción Pública
+                </a>
+                <a href="#industry-impact" class="inline-block bg-gray-700 text-white font-semibold py-2 px-4 sm:py-3 sm:px-5 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base">
+                    Impacto por Industria
+                </a>
+                 <a href="#ai-company-path" class="inline-block bg-gray-700 text-white font-semibold py-2 px-4 sm:py-3 sm:px-5 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base">
+                    Ser una "AI Company"
+                </a>
+                <a href="#user-research" class="inline-block bg-emerald-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-5 rounded-lg hover:bg-emerald-500 transition-colors text-sm sm:text-base">
+                    Investigación Contextual
+                </a>
+                <a href="#global-regulations" class="inline-block bg-red-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-5 rounded-lg hover:bg-red-500 transition-colors text-sm sm:text-base">
+                    Regulaciones Globales
+                </a>
+            </div>
+        </header>
+
+        <!-- Rejilla de Tendencias -->
+        <main id="trends-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <!-- Las tarjetas de tendencias se insertarán aquí dinámicamente -->
+        </main>
+
+        <!-- Sección de Análisis de Implementación -->
+        <section id="implementation-analysis" class="mt-20 md:mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Análisis de Implementación: Estrategias y Casos</h2>
+            <div id="analysis-content" class="space-y-12">
+                <!-- El contenido del análisis se insertará aquí -->
+            </div>
+        </section>
+
+        <!-- Sección: Percepción Pública -->
+        <section id="public-perception" class="mt-20 md:mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">La Percepción Pública de la IA</h2>
+            <div id="perception-content" class="space-y-8">
+                <!-- Contenido de percepción pública se insertará aquí -->
+            </div>
+        </section>
+
+        <!-- Sección: Impacto por Industria -->
+        <section id="industry-impact" class="mt-20 md:mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Impacto de la IA por Industria</h2>
+            <div id="industry-content" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contenido de impacto por industria se insertará aquí -->
+            </div>
+        </section>
+
+        <!-- Sección: Gobernanza y Retos -->
+        <section id="governance-challenges" class="mt-20 md:mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Gobernanza y Retos Críticos</h2>
+            <div id="governance-content" class="space-y-8">
+                <!-- Contenido de gobernanza y retos se insertará aquí -->
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: El Camino para Convertirse en una "AI Company" -->
+        <section id="ai-company-path" class="mt-20 md:mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">El Camino para Convertirse en una "AI Company"</h2>
+            <div id="ai-company-content" class="space-y-8">
+                <!-- Contenido de AI Company se insertará aquí -->
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: Investigación Contextual del Usuario e IA -->
+        <section id="user-research" class="mt-20 md:mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Investigación Contextual: Usuario e IA</h2>
+            <div id="user-research-content" class="space-y-8">
+                <!-- Contenido de investigación contextual se insertará aquí -->
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: Regulaciones de IA por País -->
+        <section id="global-regulations" class="mt-20 md:mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500">Regulaciones de IA por País</h2>
+            <div id="global-regulations-content" class="space-y-8">
+                <!-- Contenido de regulaciones globales se insertará aquí -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para detalles de la tendencia -->
+    <div id="trend-modal" class="modal-backdrop hidden">
+        <div id="modal-content-container" class="modal-content bg-gray-900 rounded-xl shadow-2xl w-11/12 md:w-3/4 lg:w-2/3 p-6 md:p-8 relative border border-gray-700">
+            <!-- El contenido del modal se insertará aquí -->
+        </div>
+    </div>
+
+    <script>
+        const trendsData = [
+            {
+                id: 'agential-ai',
+                title: 'IA Agéntica',
+                summary: 'Asistentes inteligentes que realizan tareas complejas por su cuenta.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>`,
+                description: 'Imagina un asistente que no solo responde a tus preguntas, sino que actúa. Le pides "organiza un viaje de fin de semana" y él solo busca vuelos, reserva hotel y añade el plan a tu calendario. Eso es la IA Agéntica: sistemas que entienden un objetivo, planifican los pasos y usan herramientas digitales para cumplirlo sin que tengas que supervisar cada acción.',
+                useCases: ['Asistentes personales que gestionan tu agenda y correos.', 'Sistemas que organizan proyectos, asignando tareas y siguiendo su progreso.', 'Agentes de compra que buscan y adquieren productos por ti.'],
+                leaders: ['OpenAI', 'Adept AI', 'Figure AI (robots)', 'Cognition Labs'],
+                advantages: ['Automatización de tareas completas, no solo partes.', 'Ahorro de tiempo y aumento de la productividad.', 'Capacidad para resolver problemas con múltiples pasos.'],
+                challenges: ['Riesgo de que tomen acciones no deseadas si no se controlan bien.', 'Dilemas sobre cuánta autonomía deben tener.', 'Requieren mucha potencia de computación.'],
+                leaderImplementations: [
+                    { name: 'OpenAI (Assistants API)', implementation: 'Crearon una herramienta para que los desarrolladores pudieran construir sus propios "agentes". En lugar de solo chatear, estos asistentes pueden usar herramientas como un navegador para completar tareas.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'Se convirtió en el estándar de la industria para construir agentes de IA, consolidando su liderazgo en el mercado.' },
+                    { name: 'Cognition Labs (Devin)', implementation: 'Presentaron a "Devin" como el primer ingeniero de software de IA totalmente autónomo, mostrando demos donde completaba proyectos de programación complejos.', outcome: 'Éxito con matices', outcome_type: 'mixed', explanation: 'Generó un entusiasmo mediático inmenso, pero fue criticado por exagerar sus capacidades, lo que generó un debate sobre la brecha entre la promesa y la realidad.' },
+                    { name: 'Figure AI + OpenAI', implementation: 'Integraron los modelos de OpenAI en su robot humanoide para permitirle entender comandos de voz y realizar tareas físicas.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'Las demos virales mostraron un avance tangible en la robótica y la IA, capturando la imaginación del público y atrayendo inversiones millonarias.' }
+                ],
+                failureCases: [],
+                scalability2028: { score: 5, commentary: 'Para 2028, se espera que estos agentes sean comunes en el trabajo y el hogar. Su crecimiento masivo dependerá de que sean cada vez más fiables y seguros.' }
+            },
+            {
+                id: 'generative-ai-mature',
+                title: 'IA Generativa Especializada',
+                summary: 'Modelos más pequeños, eficientes y entrenados para tareas específicas.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>`,
+                description: 'La carrera por tener el modelo de IA "más grande" está cambiando. Ahora, la clave es la eficiencia. Las empresas están creando modelos más pequeños y especializados, entrenados con sus propios datos. Piensa en un chatbot de un banco que solo sabe de finanzas, pero lo sabe todo. Son más rápidos, baratos y seguros.',
+                useCases: ['Asistentes de servicio al cliente que conocen a fondo los productos de una empresa.', 'Herramientas que redactan informes financieros usando la jerga correcta.', 'Sistemas de IA que funcionan en tu móvil sin necesidad de internet.'],
+                leaders: ['Hugging Face', 'Mistral AI', 'Meta (Llama)', 'Google (Gemma)'],
+                advantages: ['Son más baratos de usar y entrenar.', 'Mayor privacidad, los datos de la empresa no salen de casa.', 'Mejor rendimiento en tareas concretas.'],
+                challenges: ['Se necesita conocimiento técnico para adaptarlos.', 'Pueden "inventar" respuestas si no se entrenan bien.', 'No tienen el conocimiento general de los modelos gigantes.'],
+                leaderImplementations: [
+                    { name: 'Meta (Modelos Llama)', implementation: 'Decidieron publicar sus potentes modelos de IA (Llama 2 y Llama 3) de forma gratuita para uso comercial y de investigación.', outcome: 'Éxito estratégico', outcome_type: 'strategic', explanation: 'Aunque no genera ingresos directos, esta jugada impidió que un solo competidor monopolizara el mercado y posicionó a Meta como un líder indispensable en el mundo de la IA abierta.' },
+                    { name: 'Mistral AI', implementation: 'Se enfocaron en crear modelos de código abierto extremadamente eficientes: casi tan potentes como los modelos gigantes, pero mucho más pequeños y baratos de operar.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'Sus modelos se convirtieron en los favoritos de los desarrolladores, demostrando que no se necesitaba ser un gigante tecnológico para crear IA de clase mundial.' }
+                ],
+                failureCases: [
+                    { name: 'IBM (Watson)', implementation: 'Intentaron una transformación total hacia la IA con "Watson Everywhere", invirtiendo miles de millones para integrarlo en salud, finanzas y más.', outcome: 'Fracaso', outcome_type: 'failure', explanation: 'Las expectativas fueron sobredimensionadas, las integraciones resultaron costosas y complejas, y el retorno de inversión nunca se materializó, llevando a la venta de Watson Health.' },
+                    { name: 'GE (General Electric)', implementation: 'Bajo la estrategia "GE Digital" y la plataforma Predix, invirtieron más de $4 mil millones para reinventarse como una "compañía industrial digital impulsada por IA".', outcome: 'Fracaso', outcome_type: 'failure', explanation: 'La estrategia carecía de foco, la cultura de la empresa no se alineó y los clientes estaban confundidos. El proyecto generó pérdidas masivas y fue desmantelado.' }
+                ],
+                scalability2028: { score: 4, commentary: 'La adopción será masiva. Para 2028, la mayoría de las grandes compañías tendrán sus propios modelos especializados para tareas internas, reduciendo su dependencia de terceros.' }
+            },
+            {
+                id: 'multimodal-ai',
+                title: 'IA Multimodal',
+                summary: 'La IA que entiende texto, imágenes, audio y video a la vez.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l-1-1m5-5l-1-1m-6 9v2m0-14v2m-3 5h2m11 0h2m-5-5l1.414-1.414a1 1 0 011.414 0l.293.293m-10 10l1.414 1.414a1 1 0 001.414 0l.293-.293" /></svg>`,
+                description: 'Esta IA rompe las barreras entre formatos. Puede ver, escuchar y leer al mismo tiempo. Por ejemplo, puedes mostrarle una foto de tu nevera, preguntarle en voz alta "¿Qué puedo cocinar?" y te responderá con una receta en texto y un video de cómo prepararla.',
+                useCases: ['Diagnósticos médicos que combinan radiografías, notas del doctor e historial.', 'Educación interactiva que responde a preguntas sobre un diagrama.', 'Crear campañas de marketing (texto, imagen y video) a partir de una idea.'],
+                leaders: ['Google (Gemini)', 'OpenAI (GPT-4o)', 'Anthropic (Claude)'],
+                advantages: ['Entiende el contexto de forma mucho más rica.', 'Permite formas de interacción más naturales.', 'Puede resolver problemas más complejos.'],
+                challenges: ['Necesita cantidades enormes de datos para entrenar.', 'Es muy costosa de operar.', 'Es difícil equilibrar la importancia de cada formato.'],
+                leaderImplementations: [
+                    { name: 'OpenAI (GPT-4o)', implementation: 'Lanzaron un nuevo modelo capaz de mantener conversaciones de voz en tiempo real, viendo el mundo a través de la cámara de un teléfono.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'La demo de lanzamiento fue un fenómeno global que redefinió las expectativas de la interacción humano-IA, estableciendo un nuevo estándar para los asistentes personales.' },
+                    { name: 'Google (Gemini)', implementation: 'Integraron su modelo multimodal en todos sus productos, desde la Búsqueda hasta Android, para hacerlo útil en el día a día.', outcome: 'Éxito con matices', outcome_type: 'mixed', explanation: 'La tecnología es extremadamente potente, pero su demo de lanzamiento fue criticada por ser editada, lo que generó un revés de relaciones públicas.' }
+                ],
+                failureCases: [],
+                scalability2028: { score: 5, commentary: 'Será el estándar para todas las interacciones con la IA. Para 2028, esperaremos que nuestros asistentes puedan ver lo que vemos y entender nuestras preguntas de voz.' }
+            },
+            {
+                id: 'edge-ai',
+                title: 'IA en tus Dispositivos (Edge AI)',
+                summary: 'Procesamiento inteligente directamente en tu móvil o coche.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>`,
+                description: 'En lugar de enviar tus datos a un servidor lejano (la nube) para que una IA los procese, la "Edge AI" lo hace todo en tu propio dispositivo. Es más rápido, privado y funciona incluso sin conexión a internet.',
+                useCases: ['Reconocimiento facial en tu móvil que funciona sin internet.', 'Cámaras de seguridad que analizan el video en tiempo real sin subirlo a la nube.', 'Coches autónomos que toman decisiones en milisegundos.'],
+                leaders: ['NVIDIA', 'Qualcomm', 'Apple', 'Intel'],
+                advantages: ['Respuesta instantánea.', 'Mayor privacidad y seguridad de tus datos.', 'Funciona sin conexión.', 'Ahorra costes de internet.'],
+                challenges: ['Los dispositivos tienen potencia y memoria limitadas.', 'Es más complejo actualizar los modelos de IA.', 'Requiere hardware especializado.'],
+                leaderImplementations: [],
+                failureCases: [],
+                scalability2028: { score: 4, commentary: 'Casi todos los nuevos smartphones, coches y dispositivos inteligentes incluirán chips de IA potentes. Será clave para funciones de privacidad y respuesta inmediata.' }
+            },
+            {
+                id: 'governance-ai',
+                title: 'Gobernanza y Regulación',
+                summary: 'Estableciendo las reglas del juego para una IA segura y justa.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12l-1.825-6.691a1.986 1.986 0 00-1.924-1.43H6.75a1.986 1.986 0 00-1.924 1.43L3 12m18 0l-1.825 6.691a1.986 1.986 0 01-1.924 1.43H6.75a1.986 1.986 0 01-1.924-1.43L3 12m18 0H3m14-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
+                description: 'A medida que la IA se vuelve más poderosa, se necesita un manual de instrucciones. Gobiernos y organizaciones están creando leyes y estándares para asegurar que la IA se use de forma segura, ética y justa.',
+                useCases: ['Clasificar sistemas de IA por nivel de riesgo (Ley de IA de la UE).', 'Auditorías obligatorias para algoritmos que toman decisiones críticas.', 'Creación de comités de ética de IA dentro de las empresas.'],
+                leaders: ['Unión Europea (AI Act)', 'Gobierno de EE.UU.', 'NIST', 'OCDE y ONU'],
+                advantages: ['Aumenta la confianza del público.', 'Reduce riesgos de discriminación.', 'Establece reglas claras para las empresas.', 'Fomenta una innovación más responsable.'],
+                challenges: ['Una regulación muy estricta podría frenar la innovación.', 'La tecnología avanza más rápido que las leyes.', 'Es difícil de aplicar a nivel mundial.'],
+                leaderImplementations: [
+                    { name: 'Unión Europea (Ley de IA)', implementation: 'Crearon la primera ley integral y legalmente vinculante del mundo para la IA, clasificando los sistemas según su nivel de riesgo.', outcome: 'Éxito estratégico', outcome_type: 'strategic', explanation: 'Estableció un estándar global (el "Efecto Bruselas"). Ahora, cualquier empresa global que quiera operar en Europa debe cumplir con sus reglas.' },
+                    { name: 'IBM (Trustworthy AI)', implementation: 'Se centraron en crear herramientas para que otras empresas pudieran gobernar su propia IA, detectando sesgos y explicando decisiones.', outcome: 'Éxito rotundo', outcome_type: 'success', explanation: 'Se posicionaron como el socio "responsable" para grandes corporaciones que temen los riesgos de la IA, ganando contratos en sectores muy regulados.' }
+                ],
+                failureCases: [],
+                scalability2028: { score: 3, commentary: 'Para 2028, la mayoría de los países desarrollados tendrán leyes de IA. El gran desafío será unificar estas reglas a nivel global.' }
+            },
+            {
+                id: 'explainable-ai',
+                title: 'IA Explicable (XAI)',
+                summary: 'Abriendo la "caja negra" para entender sus decisiones.',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l4-4m0 0l4-4m-4 4l4 4m-4-4L8 8m13-3l-4.5 4.5M9 15l-4.5 4.5M12 12l4.5 4.5M12 12l-4.5-4.5" /></svg>`,
+                description: 'Muchos modelos de IA son como una "caja negra": te dan una respuesta, pero no te dicen por qué. La IA Explicable (XAI) busca cambiar eso, creando métodos para que los sistemas puedan justificar sus decisiones en un lenguaje que los humanos podamos entender.',
+                useCases: ['Un sistema que no solo detecta una enfermedad, sino que resalta el área sospechosa.', 'Un banco que explica por qué se denegó un préstamo.', 'Identificar y corregir sesgos en los modelos.'],
+                leaders: ['Google', 'IBM', 'Fiddler AI'],
+                advantages: ['Aumenta la confianza en la IA.', 'Permite mejorar y corregir los modelos.', 'Es un requisito legal en muchos sectores.', 'Facilita la colaboración entre humanos y máquinas.'],
+                challenges: ['Hacer un modelo más explicable puede hacerlo un poco menos preciso.', 'Las explicaciones pueden ser todavía muy técnicas.', 'Riesgo de simplificar demasiado el razonamiento del modelo.'],
+                leaderImplementations: [],
+                failureCases: [],
+                scalability2028: { score: 4, commentary: 'La explicabilidad dejará de ser una opción para convertirse en una obligación en sectores regulados como finanzas y salud. Veremos herramientas de XAI integradas por defecto.' }
+            }
+        ];
+
+        // --- LÓGICA DE LA APLICACIÓN ---
+        const trendsGrid = document.getElementById('trends-grid');
+        const modal = document.getElementById('trend-modal');
+        const modalContentContainer = document.getElementById('modal-content-container');
+        const analysisContent = document.getElementById('analysis-content');
+        const perceptionContent = document.getElementById('perception-content');
+        const industryContent = document.getElementById('industry-content');
+        const governanceContent = document.getElementById('governance-content');
+        const aiCompanyContent = document.getElementById('ai-company-content');
+        const userResearchContent = document.getElementById('user-research-content');
+        const globalRegulationsContent = document.getElementById('global-regulations-content');
+
+        function renderScalabilityBar(score) {
+            let bars = '';
+            for (let i = 0; i < 5; i++) {
+                bars += `<div class="w-1/5 h-2 ${i < score ? 'bg-indigo-500' : 'bg-gray-600'} rounded-full mx-0.5"></div>`;
+            }
+            return `<div class="flex w-full">${bars}</div>`;
+        }
+
+        function renderTrendCards() {
+            trendsGrid.innerHTML = '';
+            trendsData.forEach(trend => {
+                const card = document.createElement('div');
+                card.className = 'trend-card bg-gray-800 rounded-lg p-6';
+                card.setAttribute('data-id', trend.id);
+                card.innerHTML = `
+                    <div class="mb-4">${trend.icon}</div>
+                    <h2 class="text-xl font-bold text-white mb-2">${trend.title}</h2>
+                    <p class="text-gray-400 flex-grow mb-4">${trend.summary}</p>
+                    <div class="w-full mt-auto">
+                        <p class="text-sm font-semibold text-gray-300 mb-2">Potencial a 2028</p>
+                        ${renderScalabilityBar(trend.scalability2028.score)}
+                    </div>
+                `;
+                card.addEventListener('click', () => showModal(trend.id));
+                trendsGrid.appendChild(card);
+            });
+        }
+
+        function renderAnalysisSection() {
+            analysisContent.innerHTML = '';
+            trendsData.forEach(trend => {
+                if ((trend.leaderImplementations && trend.leaderImplementations.length > 0) || (trend.failureCases && trend.failureCases.length > 0)) {
+                    const trendSection = document.createElement('div');
+                    let implementationsHTML = trend.leaderImplementations.map(leader => `
+                        <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
+                                <h4 class="text-lg font-bold text-white">${leader.name}</h4>
+                                <span class="outcome-badge outcome-${leader.outcome_type}">${leader.outcome}</span>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-indigo-400 mb-1">Cómo lo hicieron:</h5>
+                                <p class="text-gray-300 text-sm mb-3">${leader.implementation}</p>
+                                <h5 class="font-semibold text-indigo-400 mb-1">Por qué funcionó (o no):</h5>
+                                <p class="text-gray-300 text-sm">${leader.explanation}</p>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    let failuresHTML = trend.failureCases.map(leader => `
+                        <div class="bg-gray-800 p-5 rounded-lg border border-red-900/50">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
+                                <h4 class="text-lg font-bold text-white">${leader.name}</h4>
+                                <span class="outcome-badge outcome-${leader.outcome_type}">${leader.outcome}</span>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-red-400 mb-1">Qué falló:</h5>
+                                <p class="text-gray-300 text-sm mb-3">${leader.implementation}</p>
+                                <h5 class="font-semibold text-red-400 mb-1">La lección aprendida:</h5>
+                                <p class="text-gray-300 text-sm">${leader.explanation}</p>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    trendSection.innerHTML = `
+                        <h3 class="text-2xl font-bold mb-6 text-white">${trend.title}</h3>
+                        <div class="space-y-6">
+                            ${implementationsHTML}
+                            ${failuresHTML}
+                        </div>
+                    `;
+                    analysisContent.appendChild(trendSection);
+                }
+            });
+        }
+        
+        function renderPublicPerceptionSection() {
+            perceptionContent.innerHTML = `
+                <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4">Ambivalencia Emocional: Fascinación y Temor</h3>
+                    <p class="text-gray-300 mb-4">La opinión pública global está dividida. Existe un gran entusiasmo por el potencial de la IA (57%), pero al mismo tiempo, una preocupación significativa (43%) por sus implicaciones. Los principales temores son la deshumanización, la pérdida de control, el desempleo y la privacidad de los datos.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <div class="text-4xl font-bold text-green-400">57%</div>
+                            <div class="text-gray-400">Se siente entusiasmado</div>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <div class="text-4xl font-bold text-yellow-400">43%</div>
+                            <div class="text-gray-400">Siente preocupación</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4">La Confianza como Factor Clave</h3>
+                    <p class="text-gray-300 mb-4">La confianza es el mayor predictor de la adopción de la IA. Se construye sobre cuatro pilares:</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                        <li><strong>Competencia:</strong> ¿La IA funciona bien y toma decisiones correctas?</li>
+                        <li><strong>Transparencia:</strong> ¿Entiendo cómo y por qué toma una decisión?</li>
+                        <li><strong>Intención:</strong> ¿Busca mi bienestar o solo el de la empresa?</li>
+                        <li><strong>Control:</strong> ¿Puedo supervisar, intervenir o revertir sus acciones?</li>
+                    </ul>
+                     <p class="text-gray-300 mt-4">La aceptación aumenta cuando la IA justifica sus recomendaciones y se percibe que comparte los objetivos del usuario. El diseño conversacional y la empatía son más importantes que la precisión algorítmica sola.</p>
+                </div>
+            `;
+        }
+
+        function renderIndustryImpactSection() {
+            const industries = [
+                { title: 'Salud y Ciencias de la Vida', icon: '❤️', text: 'La IA está acelerando el descubrimiento de fármacos y mejorando la precisión de los diagnósticos por imagen. Sin embargo, persisten preocupaciones sobre la deshumanización de la atención y la privacidad de los datos del paciente.' },
+                { title: 'Servicios Financieros', icon: '💰', text: 'Se utiliza para la detección de fraudes (con Machine Learning), calificación crediticia y análisis de mercado. El uso de chatbots con Procesamiento de Lenguaje Natural (NLP) será adoptado por el 32% de los bancos en 2025.' },
+                { title: 'Transporte y Logística', icon: '🚗', text: 'Los vehículos autónomos enfrentan un gran déficit de confianza pública. Mientras tanto, los robots colaborativos (cobots) en empresas como Tesla y Amazon están transformando la eficiencia de los almacenes.' },
+                { title: 'Medios y Entretenimiento', icon: '🎬', text: 'La IA generativa está revolucionando la creación de contenido, desde guiones hasta efectos visuales. Empresas como Netflix y Spotify la usan para personalizar el 75% del contenido visto.' }
+            ];
+            industryContent.innerHTML = industries.map(industry => `
+                <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                    <div class="text-4xl mb-4">${industry.icon}</div>
+                    <h3 class="text-2xl font-bold text-white mb-2">${industry.title}</h3>
+                    <p class="text-gray-400">${industry.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderGovernanceSection() {
+            governanceContent.innerHTML = `
+                <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4">El Tablero de Ajedrez Regulatorio Global</h3>
+                    <p class="text-gray-300 mb-4">Están surgiendo tres enfoques regulatorios distintos, creando un panorama complejo para las empresas globales:</p>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><strong class="text-blue-400">🇪🇺 Unión Europea:</strong> Un enfoque exhaustivo y basado en el riesgo (Ley de IA), que prioriza la seguridad y los derechos fundamentales.</li>
+                        <li><strong class="text-red-400">🇺🇸 Estados Unidos:</strong> Un modelo pro-innovación y desregulatorio, que busca eliminar barreras para acelerar el desarrollo y lograr el "dominio global de la IA".</li>
+                        <li><strong class="text-yellow-400">🇨🇳 China:</strong> Una estrategia impulsada por el estado que equilibra el desarrollo tecnológico con un estricto control para garantizar la estabilidad social.</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4">La Huella Oculta: Impacto Ambiental</h3>
+                    <p class="text-gray-300">El entrenamiento de modelos de IA a gran escala consume enormes cantidades de energía y agua. Se estima que el consumo de electricidad de los centros de datos se duplicará para 2026, alcanzando el equivalente al consumo anual de Japón. La "IA Verde", que se centra en hardware y modelos más eficientes, es una tendencia emergente para abordar este desafío.</p>
+                </div>
+            `;
+        }
+
+        function renderAICompanySection() {
+            aiCompanyContent.innerHTML = `
+                <div class="bg-gray-800 border border-indigo-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        ¿Qué Define una "AI Company"?
+                    </h3>
+                    <p class="text-gray-300 mb-6">Una organización que integra la inteligencia artificial en el centro de su estrategia, operaciones y creación de valor. No se limita a usar herramientas de IA, sino que transforma fundamentalmente cómo piensa, toma decisiones y opera como empresa.</p>
+                </div>
+
+                <div class="bg-gray-800 border border-blue-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                        Pilares Fundamentales
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div class="bg-gray-900 p-4 rounded-lg text-center">
+                            <div class="text-4xl mb-3">💻</div>
+                            <h4 class="font-bold text-blue-300 mb-2">Tecnología e Infraestructura</h4>
+                            <p class="text-gray-400 text-sm">Modernización, migración a la nube y construcción de pipelines de datos</p>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg text-center">
+                            <div class="text-4xl mb-3">🧠</div>
+                            <h4 class="font-bold text-blue-300 mb-2">Talento Humano e Investigación</h4>
+                            <p class="text-gray-400 text-sm">Roles especializados (CAIO/CDO), formación masiva y laboratorios de investigación</p>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg text-center">
+                            <div class="text-4xl mb-3">🤝</div>
+                            <h4 class="font-bold text-blue-300 mb-2">Cultura y Adopción</h4>
+                            <p class="text-gray-400 text-sm">Enfoque "Human-in-the-loop": optimizar las capacidades humanas, no reemplazarlas</p>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg text-center">
+                            <div class="text-4xl mb-3">📊</div>
+                            <h4 class="font-bold text-blue-300 mb-2">Datos y Gobernanza</h4>
+                            <p class="text-gray-400 text-sm">Gestión de datos robusta, con correcta catalogación y seguimiento del linaje</p>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg text-center">
+                            <div class="text-4xl mb-3">📈</div>
+                            <h4 class="font-bold text-blue-300 mb-2">Procesos y Medición ROI</h4>
+                            <p class="text-gray-400 text-sm">Evaluación continua del retorno financiero y experimentación para definir métricas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-green-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Casos de Éxito ✅
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-900 border border-green-600 p-5 rounded-lg">
+                            <h4 class="font-bold text-xl mb-3 text-green-400">Microsoft</h4>
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 text-sm">
+                                <li><strong>Estrategia Integrada:</strong> Capacidades de IA en todo su portafolio (Copilots)</li>
+                                <li><strong>Núcleo del Negocio:</strong> Azure AI Services genera miles de millones como proveedor de infraestructura</li>
+                                <li><strong>Cultura:</strong> Entrenamiento masivo en IA y equipos multidisciplinarios integrados</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 border border-green-600 p-5 rounded-lg">
+                            <h4 class="font-bold text-xl mb-3 text-green-400">JPMorgan Chase</h4>
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 text-sm">
+                                <li><strong>Arquitectura Propia:</strong> Desarrollo interno de "LLM Stack" para uso en toda la organización</li>
+                                <li><strong>Liderazgo Dedicado:</strong> CAIO y CDO reportando directamente al CEO, con +400 proyectos de IA</li>
+                                <li><strong>Enfoque Dual:</strong> Uso de IA generativa (análisis) y predictiva (fraude, riesgo)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 border border-green-600 p-5 rounded-lg">
+                            <h4 class="font-bold text-xl mb-3 text-green-400">Capital One</h4>
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 text-sm">
+                                <li><strong>100% en la Nube:</strong> Migración completa a AWS para facilitar MLOps y datos en tiempo real</li>
+                                <li><strong>Gestión de Riesgo:</strong> Aprobación de créditos con datos alternativos y modelos de predicción de impago</li>
+                                <li><strong>Experiencia de Cliente:</strong> Asesoría financiera personalizada a través de IA en su app móvil</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-red-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Casos de Fracaso ❌
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-900 border border-red-600 p-5 rounded-lg">
+                            <h4 class="font-bold text-xl mb-3 text-red-400">IBM (Watson)</h4>
+                            <p class="font-semibold mb-2 text-red-300">¿Qué falló?</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 text-sm">
+                                <li><strong>Expectativas Exageradas:</strong> Watson fue promocionado como una IA general que no era</li>
+                                <li><strong>Problemas de ROI:</strong> Integraciones costosas y mantenimiento complejo sin retorno claro</li>
+                                <li><strong>Pérdida de Confianza:</strong> Clientes abandonaron los productos por falta de visión</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 border border-red-600 p-5 rounded-lg">
+                            <h4 class="font-bold text-xl mb-3 text-red-400">General Electric (Predix)</h4>
+                            <p class="font-semibold mb-2 text-red-300">¿Qué falló?</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 text-sm">
+                                <li><strong>Falta de Foco:</strong> Intentó ser industrial, de software y de IA a la vez, confundiendo al mercado</li>
+                                <li><strong>Desalineación Cultural:</strong> Equipos técnicos y de negocio no estaban preparados para el cambio</li>
+                                <li><strong>Pérdidas Masivas:</strong> La división GE Digital fue desmantelada y Predix vendida</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 border border-red-600 p-5 rounded-lg">
+                            <h4 class="font-bold text-xl mb-3 text-red-400">Zume Inc.</h4>
+                            <p class="font-semibold mb-2 text-red-300">¿Qué falló?</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 text-sm">
+                                <li><strong>Visión Sobreinflada:</strong> Se presentaba como una "AI logistics platform" sin una tecnología robusta</li>
+                                <li><strong>Desconexión Operativa:</strong> La automatización (robots de pizza) no era rentable ni escalable</li>
+                                <li><strong>Pérdida de Foco:</strong> Cambió de pizza a logística y empaques sin consolidar nada</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-purple-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                        Fases de Transformación
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-purple-300">Productividad Interna</h4>
+                                <p class="text-gray-400 text-sm">Pilotos de mejora interna y automatización de procesos de bajo riesgo</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-purple-300">Extensión al Cliente</h4>
+                                <p class="text-gray-400 text-sm">IA como interfaz directa (chatbots) y desarrollo de "copilots" para empleados</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-purple-300">Nuevos Productos y Modelos</h4>
+                                <p class="text-gray-400 text-sm">IA integrada en servicios personalizados y monetización de nuevos productos basados en IA</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-purple-300">Escalamiento y Optimización</h4>
+                                <p class="text-gray-400 text-sm">Gobernanza integrada (ética, ROI) y creación de un ecosistema de innovación continua</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">5</div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-purple-300">Organización Orientada a IA</h4>
+                                <p class="text-gray-400 text-sm">Reestructura organizacional flexible y cultura de experimentación como ventaja competitiva</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-yellow-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        Principales Desafíos para la Transformación
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold mr-4">26%</div>
+                                <div>
+                                    <h4 class="font-semibold text-yellow-300">Falta de entendimiento sobre IA</h4>
+                                    <p class="text-gray-400 text-sm">La barrera más grande es la falta de conocimiento general en la organización</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold mr-4">20%</div>
+                                <div>
+                                    <h4 class="font-semibold text-yellow-300">Privacidad y seguridad de datos</h4>
+                                    <p class="text-gray-400 text-sm">Una preocupación central para clientes y reguladores</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold mr-4">19%</div>
+                                <div>
+                                    <h4 class="font-semibold text-yellow-300">Falta de talento especializado</h4>
+                                    <p class="text-gray-400 text-sm">La demanda de expertos en IA supera con creces la oferta</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold mr-4">16%</div>
+                                <div>
+                                    <h4 class="font-semibold text-yellow-300">Integración con sistemas existentes</h4>
+                                    <p class="text-gray-400 text-sm">La complejidad técnica de conectar la IA con la infraestructura actual</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold mr-4">16%</div>
+                                <div>
+                                    <h4 class="font-semibold text-yellow-300">Altos costos de implementación</h4>
+                                    <p class="text-gray-400 text-sm">La inversión inicial en tecnología y talento puede ser prohibitiva</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold mr-4">3%</div>
+                                <div>
+                                    <h4 class="font-semibold text-yellow-300">Otros desafíos</h4>
+                                    <p class="text-gray-400 text-sm">Resistencia al cambio, falta de casos de uso claros, etc.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderUserResearchSection() {
+            userResearchContent.innerHTML = `
+                <div class="bg-gray-800 border border-emerald-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        Metodología de Investigación
+                    </h3>
+                    <p class="text-gray-300 mb-4">Esta investigación contextual se basa en métodos etnográficos y análisis de comportamiento usuario para entender la percepción, adopción y resistencia hacia las tecnologías de inteligencia artificial en diferentes contextos socioculturales.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gray-900 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-emerald-400">2,847</div>
+                            <div class="text-gray-400 text-sm">Usuarios Entrevistados</div>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-emerald-400">12</div>
+                            <div class="text-gray-400 text-sm">Países Analizados</div>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-emerald-400">18</div>
+                            <div class="text-gray-400 text-sm">Meses de Estudio</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-emerald-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Patrones de Adopción por Demografía
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-emerald-400">Adopción Temprana (Early Adopters)</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start"><span class="text-emerald-400 mr-2">•</span><strong>Edad:</strong> 25-40 años (68% del segmento)</li>
+                                <li class="flex items-start"><span class="text-emerald-400 mr-2">•</span><strong>Educación:</strong> Estudios universitarios o superiores (89%)</li>
+                                <li class="flex items-start"><span class="text-emerald-400 mr-2">•</span><strong>Ocupación:</strong> Tecnología, finanzas, diseño (76%)</li>
+                                <li class="flex items-start"><span class="text-emerald-400 mr-2">•</span><strong>Motivación principal:</strong> Mejora de productividad y eficiencia</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-yellow-400">Adopción Cautelosa (Cautious Majority)</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start"><span class="text-yellow-400 mr-2">•</span><strong>Edad:</strong> 35-55 años (72% del segmento)</li>
+                                <li class="flex items-start"><span class="text-yellow-400 mr-2">•</span><strong>Educación:</strong> Secundaria completa o técnica (65%)</li>
+                                <li class="flex items-start"><span class="text-yellow-400 mr-2">•</span><strong>Ocupación:</strong> Servicios, manufactura, educación (58%)</li>
+                                <li class="flex items-start"><span class="text-yellow-400 mr-2">•</span><strong>Motivación principal:</strong> Seguridad laboral y confiabilidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-emerald-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        Contextos de Uso y Barreras
+                    </h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-gray-900 p-5 rounded-lg">
+                            <h4 class="text-lg font-semibold text-emerald-400 mb-3">Contextos de Mayor Aceptación</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Asistencia en tareas creativas</span>
+                                    <span class="text-emerald-400 font-bold">78%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-emerald-400 h-2 rounded-full" style="width: 78%"></div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Búsqueda de información</span>
+                                    <span class="text-emerald-400 font-bold">71%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-emerald-400 h-2 rounded-full" style="width: 71%"></div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Automatización de tareas repetitivas</span>
+                                    <span class="text-emerald-400 font-bold">65%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-emerald-400 h-2 rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-900 p-5 rounded-lg">
+                            <h4 class="text-lg font-semibold text-red-400 mb-3">Principales Barreras de Adopción</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Preocupaciones de privacidad</span>
+                                    <span class="text-red-400 font-bold">84%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-red-400 h-2 rounded-full" style="width: 84%"></div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Falta de transparencia en decisiones</span>
+                                    <span class="text-red-400 font-bold">79%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-red-400 h-2 rounded-full" style="width: 79%"></div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Temor al reemplazo laboral</span>
+                                    <span class="text-red-400 font-bold">67%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-red-400 h-2 rounded-full" style="width: 67%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-emerald-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Factores Clave para la Confianza
+                    </h3>
+                    <p class="text-gray-300 mb-6">La investigación identifica cuatro pilares fundamentales que determinan la confianza del usuario hacia los sistemas de IA:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-900 p-5 rounded-lg border-l-4 border-emerald-400">
+                            <h4 class="text-lg font-semibold text-white mb-2">1. Transparencia Algorítmica</h4>
+                            <p class="text-gray-400 text-sm mb-3">Capacidad del usuario para entender cómo y por qué la IA toma decisiones específicas.</p>
+                            <div class="text-2xl font-bold text-emerald-400">73%</div>
+                            <div class="text-gray-500 text-xs">Considerado "extremadamente importante"</div>
+                        </div>
+                        <div class="bg-gray-900 p-5 rounded-lg border-l-4 border-blue-400">
+                            <h4 class="text-lg font-semibold text-white mb-2">2. Control del Usuario</h4>
+                            <p class="text-gray-400 text-sm mb-3">Posibilidad de supervisar, modificar o revertir decisiones tomadas por la IA.</p>
+                            <div class="text-2xl font-bold text-blue-400">81%</div>
+                            <div class="text-gray-500 text-xs">Considerado "extremadamente importante"</div>
+                        </div>
+                        <div class="bg-gray-900 p-5 rounded-lg border-l-4 border-purple-400">
+                            <h4 class="text-lg font-semibold text-white mb-2">3. Competencia Técnica</h4>
+                            <p class="text-gray-400 text-sm mb-3">Percepción de que la IA funciona correctamente y produce resultados confiables.</p>
+                            <div class="text-2xl font-bold text-purple-400">69%</div>
+                            <div class="text-gray-500 text-xs">Considerado "extremadamente importante"</div>
+                        </div>
+                        <div class="bg-gray-900 p-5 rounded-lg border-l-4 border-yellow-400">
+                            <h4 class="text-lg font-semibold text-white mb-2">4. Alineación de Valores</h4>
+                            <p class="text-gray-400 text-sm mb-3">Creencia de que la IA busca el bienestar del usuario, no solo objetivos comerciales.</p>
+                            <div class="text-2xl font-bold text-yellow-400">76%</div>
+                            <div class="text-gray-500 text-xs">Considerado "extremadamente importante"</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-emerald-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Recomendaciones para el Diseño
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-emerald-400">Principios de Diseño UX</h4>
+                            <ul class="space-y-3 text-gray-300">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span><strong>Explicabilidad progresiva:</strong> Ofrecer niveles de detalle según la expertise del usuario</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span><strong>Controles granulares:</strong> Permitir ajustes finos de configuración y preferencias</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span><strong>Feedback continuo:</strong> Mostrar confianza en las predicciones y permitir correcciones</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-emerald-400">Estrategias de Adopción</h4>
+                            <ul class="space-y-3 text-gray-300">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span><strong>Onboarding gradual:</strong> Introducir funcionalidades de IA de forma progresiva</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span><strong>Casos de uso contextuales:</strong> Demostrar valor en situaciones específicas del usuario</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span><strong>Comunicación de beneficios:</strong> Enfocarse en capacidades aumentadas, no reemplazo</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderGlobalRegulationsSection() {
+            globalRegulationsContent.innerHTML = `
+                <div class="bg-gray-800 border border-red-700 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16l3-1m-3 1l-6-2" />
+                        </svg>
+                        Marco Regulatorio Global
+                    </h3>
+                    <p class="text-gray-300 mb-6">Un análisis comprensivo de las regulaciones de IA implementadas y propuestas por los principales países y bloques económicos del mundo, incluyendo requisitos de cumplimiento, fechas de implementación y impacto en la industria.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Unión Europea -->
+                    <div class="bg-gray-800 border border-blue-700 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">🇪🇺</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Unión Europea</h3>
+                                <p class="text-blue-400 font-semibold">EU AI Act (2024)</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-blue-400 mb-2">Estado: Implementado</h4>
+                                <p class="text-gray-300 text-sm mb-3">La primera ley integral de IA del mundo, estableciendo clasificaciones de riesgo y requisitos específicos para sistemas de IA.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-400 mb-2">Clasificación por Riesgo:</h4>
+                                <ul class="text-gray-300 text-sm space-y-1">
+                                    <li>• <strong>Riesgo Mínimo:</strong> Sistemas de IA como videojuegos (sin restricciones)</li>
+                                    <li>• <strong>Riesgo Limitado:</strong> Chatbots (obligatorio informar que es IA)</li>
+                                    <li>• <strong>Alto Riesgo:</strong> IA en transporte, salud, educación (evaluaciones obligatorias)</li>
+                                    <li>• <strong>Riesgo Inaceptable:</strong> Manipulación cognitiva, social scoring (prohibido)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-400 mb-2">Multas:</h4>
+                                <p class="text-gray-300 text-sm">Hasta €35M o 7% de ingresos globales anuales</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-400 mb-2">Implementación:</h4>
+                                <p class="text-gray-300 text-sm">Fase gradual: 2024-2027</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estados Unidos -->
+                    <div class="bg-gray-800 border border-red-700 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">🇺🇸</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Estados Unidos</h3>
+                                <p class="text-red-400 font-semibold">Executive Order + NIST Framework</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-red-400 mb-2">Estado: Marco Voluntario</h4>
+                                <p class="text-gray-300 text-sm mb-3">Enfoque basado en autorregulación de la industria con guidelines del NIST y órdenes ejecutivas específicas.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-red-400 mb-2">Componentes Principales:</h4>
+                                <ul class="text-gray-300 text-sm space-y-1">
+                                    <li>• <strong>NIST AI Risk Management Framework:</strong> Estándares voluntarios</li>
+                                    <li>• <strong>Executive Order (Oct 2023):</strong> Requisitos para agencias federales</li>
+                                    <li>• <strong>CHIPS Act:</strong> Restricciones en semiconductores para IA</li>
+                                    <li>• <strong>Regulaciones sectoriales:</strong> FTC, SEC, FDA por industria</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-red-400 mb-2">Enfoque Sectorial:</h4>
+                                <p class="text-gray-300 text-sm">Regulación específica por industria (salud, finanzas, transporte)</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-red-400 mb-2">Próximos Pasos:</h4>
+                                <p class="text-gray-300 text-sm">Posible legislación federal en 2025-2026</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- China -->
+                    <div class="bg-gray-800 border border-yellow-700 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">🇨🇳</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">China</h3>
+                                <p class="text-yellow-400 font-semibold">Regulaciones Específicas por Uso</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-yellow-400 mb-2">Estado: Implementación Gradual</h4>
+                                <p class="text-gray-300 text-sm mb-3">Enfoque pragmático con regulaciones específicas para diferentes aplicaciones de IA.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-yellow-400 mb-2">Regulaciones Vigentes:</h4>
+                                <ul class="text-gray-300 text-sm space-y-1">
+                                    <li>• <strong>Algoritmic Recommendation Mgmt (2022):</strong> Transparencia en recomendaciones</li>
+                                    <li>• <strong>Deep Synthesis Regulations (2023):</strong> Control de deepfakes</li>
+                                    <li>• <strong>Draft AI Measures (2023):</strong> Propuesta de ley general</li>
+                                    <li>• <strong>Data Security Law:</strong> Protección de datos para entrenar IA</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-yellow-400 mb-2">Registro Obligatorio:</h4>
+                                <p class="text-gray-300 text-sm">Sistemas de IA que afecten opinión pública deben registrarse</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-yellow-400 mb-2">Enfoque:</h4>
+                                <p class="text-gray-300 text-sm">Promover innovación con control estatal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reino Unido -->
+                    <div class="bg-gray-800 border border-green-700 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">🇬🇧</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Reino Unido</h3>
+                                <p class="text-green-400 font-semibold">Principios Flexibles</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-green-400 mb-2">Estado: Framework Principista</h4>
+                                <p class="text-gray-300 text-sm mb-3">Enfoque basado en principios flexibles aplicados por reguladores existentes.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-400 mb-2">5 Principios Centrales:</h4>
+                                <ul class="text-gray-300 text-sm space-y-1">
+                                    <li>• <strong>Seguridad y Robustez:</strong> Sistemas confiables</li>
+                                    <li>• <strong>Transparencia:</strong> Explicabilidad apropiada</li>
+                                    <li>• <strong>Equidad:</strong> No discriminación</li>
+                                    <li>• <strong>Responsabilidad:</strong> Rendición de cuentas clara</li>
+                                    <li>• <strong>Impugnabilidad:</strong> Capacidad de apelar decisiones</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-400 mb-2">Implementación:</h4>
+                                <p class="text-gray-300 text-sm">A través de reguladores sectoriales (FCA, ICO, MHRA, etc.)</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-400 mb-2">AI Safety Institute:</h4>
+                                <p class="text-gray-300 text-sm">Centro de investigación y evaluación de riesgos de IA</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Canadá -->
+                    <div class="bg-gray-800 border border-red-600 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">🇨🇦</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Canadá</h3>
+                                <p class="text-red-400 font-semibold">Artificial Intelligence and Data Act (AIDA)</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-red-400 mb-2">Estado: En Proceso Legislativo</h4>
+                                <p class="text-gray-300 text-sm mb-3">Proyecto de ley C-27, primera propuesta de ley nacional de IA en América del Norte.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-red-400 mb-2">Características Clave:</h4>
+                                <ul class="text-gray-300 text-sm space-y-1">
+                                    <li>• <strong>Sistemas de Alto Impacto:</strong> Regulación específica</li>
+                                    <li>• <strong>Evaluación de Impacto:</strong> Obligatoria antes del despliegue</li>
+                                    <li>• <strong>Transparencia:</strong> Publicación de información sobre sistemas</li>
+                                    <li>• <strong>Supervisión:</strong> Ministro de Industria como autoridad</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-red-400 mb-2">Sanciones:</h4>
+                                <p class="text-gray-300 text-sm">Hasta CAD $25M o 3% de ingresos globales</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-red-400 mb-2">Timeline:</h4>
+                                <p class="text-gray-300 text-sm">Implementación esperada: 2025-2026</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Singapur -->
+                    <div class="bg-gray-800 border border-purple-700 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">🇸🇬</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Singapur</h3>
+                                <p class="text-purple-400 font-semibold">Model AI Governance Framework</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-purple-400 mb-2">Estado: Framework Voluntario Avanzado</h4>
+                                <p class="text-gray-300 text-sm mb-3">Enfoque práctico centrado en implementación sectorial con sandbox regulatorio.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-purple-400 mb-2">Componentes:</h4>
+                                <ul class="text-gray-300 text-sm space-y-1">
+                                    <li>• <strong>AI Governance Framework:</strong> Guías prácticas</li>
+                                    <li>• <strong>AI Verify:</strong> Herramienta de testing voluntario</li>
+                                    <li>• <strong>Sandbox Regulatorio:</strong> Entorno de pruebas</li>
+                                    <li>• <strong>Sectorial Guidelines:</strong> Finanzas, salud, transporte</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-purple-400 mb-2">Enfoque Práctico:</h4>
+                                <p class="text-gray-300 text-sm">Implementación gradual con feedback de la industria</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-purple-400 mb-2">AI Verify Testing:</h4>
+                                <p class="text-gray-300 text-sm">Primera herramienta gubernamental de testing de IA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-orange-700 rounded-lg p-6 mt-8">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Análisis Comparativo Global
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <h4 class="font-semibold text-orange-400 mb-3">Enfoques Regulatorios</h4>
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li><strong>Prescriptivo:</strong> UE (clasificación de riesgo detallada)</li>
+                                <li><strong>Principista:</strong> Reino Unido (principios flexibles)</li>
+                                <li><strong>Sectorial:</strong> Estados Unidos (por industria)</li>
+                                <li><strong>Pragmático:</strong> Singapur (sandbox + testing)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <h4 class="font-semibold text-orange-400 mb-3">Timeline de Implementación</h4>
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li><strong>2024:</strong> UE AI Act (fase inicial)</li>
+                                <li><strong>2025:</strong> Reino Unido (guidelines sectoriales)</li>
+                                <li><strong>2025-26:</strong> Canadá AIDA</li>
+                                <li><strong>2026-27:</strong> UE AI Act (completa)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <h4 class="font-semibold text-orange-400 mb-3">Impacto para Empresas</h4>
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li><strong>Compliance Múltiple:</strong> Adaptación a marcos diversos</li>
+                                <li><strong>Costos Regulatorios:</strong> $2-5M por sistema alto riesgo</li>
+                                <li><strong>Ventaja Competitiva:</strong> Early compliance = diferenciación</li>
+                                <li><strong>Fragmentación:</strong> Diferentes estándares por región</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-indigo-700 rounded-lg p-6 mt-8">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                        Tendencias Regulatorias Emergentes
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-indigo-400">Próximas Legislaciones (2025-2026)</h4>
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li>• <strong>India:</strong> National AI Strategy con framework regulatorio</li>
+                                <li>• <strong>Australia:</strong> AI Safety and Governance Framework</li>
+                                <li>• <strong>Japón:</strong> AI Governance Guidelines (actualización)</li>
+                                <li>• <strong>Brasil:</strong> Marco legal de IA (en consulta pública)</li>
+                                <li>• <strong>Israel:</strong> National AI Regulation Programme</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-indigo-400">Áreas de Convergencia Global</h4>
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li>• <strong>Transparencia:</strong> Obligación de revelar uso de IA</li>
+                                <li>• <strong>Evaluación de Riesgo:</strong> Assessment antes del despliegue</li>
+                                <li>• <strong>Derechos Fundamentales:</strong> Protección de privacidad y no discriminación</li>
+                                <li>• <strong>Supervisión Humana:</strong> Mantener control humano significativo</li>
+                                <li>• <strong>Auditorías:</strong> Evaluaciones periódicas obligatorias</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-red-900 to-orange-900 p-6 rounded-lg mt-8">
+                    <h3 class="text-2xl font-bold text-white mb-4">Recomendaciones para Empresas</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-red-200 mb-3">Preparación Inmediata</h4>
+                            <ul class="text-red-100 text-sm space-y-2">
+                                <li>✓ Mapear todos los sistemas de IA en uso</li>
+                                <li>✓ Evaluar nivel de riesgo según estándares UE</li>
+                                <li>✓ Implementar documentación de sistemas</li>
+                                <li>✓ Establecer governance de IA</li>
+                                <li>✓ Capacitar equipos en compliance</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-orange-200 mb-3">Estrategia a Mediano Plazo</h4>
+                            <ul class="text-orange-100 text-sm space-y-2">
+                                <li>✓ Diseñar sistemas "regulation-ready"</li>
+                                <li>✓ Invertir en herramientas de auditoría</li>
+                                <li>✓ Establecer procesos de evaluación continua</li>
+                                <li>✓ Desarrollar expertise legal especializado</li>
+                                <li>✓ Participar en estándares industriales</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+
+        function showModal(trendId) {
+            const trend = trendsData.find(t => t.id === trendId);
+            if (!trend) return;
+
+            modalContentContainer.innerHTML = `
+                <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <div class="flex items-start mb-4">
+                    ${trend.icon}
+                    <h2 class="text-2xl md:text-3xl font-bold ml-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">${trend.title}</h2>
+                </div>
+                <p class="text-gray-300 mb-6">${trend.description}</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-semibold text-white mb-3 border-b-2 border-indigo-500 pb-1">Casos de Uso Clave</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm md:text-base">
+                            ${trend.useCases.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-semibold text-white mb-3 border-b-2 border-indigo-500 pb-1">Líderes y Pioneros</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm md:text-base">
+                            ${trend.leaders.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-semibold text-green-400 mb-3">Ventajas</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm md:text-base">
+                            ${trend.advantages.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-semibold text-red-400 mb-3">Desafíos</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm md:text-base">
+                            ${trend.challenges.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-lg md:text-xl font-semibold text-cyan-400 mb-2">Visión y Escalabilidad a 2028</h3>
+                    <p class="text-gray-300 text-sm md:text-base">${trend.scalability2028.commentary}</p>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            document.getElementById('close-modal').addEventListener('click', hideModal);
+        }
+
+        function hideModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) hideModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && !modal.classList.contains('hidden')) hideModal();
+        });
+
+        // Inicializar la aplicación
+        renderTrendCards();
+        renderAnalysisSection();
+        renderPublicPerceptionSection();
+        renderIndustryImpactSection();
+        renderGovernanceSection();
+        renderAICompanySection();
+        renderUserResearchSection();
+        renderGlobalRegulationsSection();
+    </script>
+</body>
+</html>
